@@ -6,18 +6,17 @@ app = Flask(__name__)
 @app.route('/',methods=['POST'])
 def API():
 	query=request.get_json()
-	newsTitleClasses={"classes":[]}
+	newsTitleClasses={'classes':[]}
 	for newsTitle in query['items']:
-		temp={}
 		analyzer=TextBlob(newsTitle)
 		result=analyzer.sentiment.polarity
 		if result<0:
-			temp[newsTitle]="Negative"
+			newsTitleClasses['classes'].append("Negative")
 		elif result==0:
-			temp[newsTitle]="Neutral"
+			newsTitleClasses['classes'].append("Neutral")
 		elif result>0 and result<=1:
-			temp[newsTitle]="Positive"
-		newsTitleClasses['classes'].append(temp)	
+			newsTitleClasses['classes'].append("Positive")
+
 	return jsonify(newsTitleClasses)
 
 if __name__ == '__main__':
