@@ -3,7 +3,7 @@ import requests
 from textblob import TextBlob
 
 app = Flask(__name__)
-@app.route('/',methods=['GET','POST'])
+@app.route('/',methods=['POST'])
 def API():
 	query=request.get_json()
 	newsTitleClasses={'classes':[]}
